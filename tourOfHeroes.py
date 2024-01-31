@@ -23,5 +23,11 @@ all_heroes = [ { 'id': 11, 'name': 'Dr Nice' },
 def heroes():
     return jsonify(all_heroes)
 
+@app.route('/detail/<id>', methods=['GET'])
+def detail(id):
+    for hero in all_heroes:
+        if int(hero['id']) == int(id):
+            return jsonify(hero)
+    return "'{'No hero found!'}'"
 
 app.run()
