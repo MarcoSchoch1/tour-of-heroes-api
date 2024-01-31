@@ -1,5 +1,5 @@
 from types import MethodDescriptorType
-import flask
+import flask, string
 from flask import jsonify, request
 from flask import json
 from flask_cors import CORS
@@ -28,6 +28,17 @@ def detail(id):
     for hero in all_heroes:
         if int(hero['id']) == int(id):
             return jsonify(hero)
-    return "{'No hero found!'}"
+    return "{'No hero found!'}", 400
+
+@app.route('/update', methods=['POST'])
+def update():
+    data = request.data
+    decodedData = data.decode('UTF-8')
+    data = eval(decodedData)
+    for hero in all_heroes:
+        if hero['id'] == data['id']:
+            hero['name'] = data['name']
+            return hero
+    return "Hero not found", 400
 
 app.run()
