@@ -28,6 +28,6 @@ def detail(id):
     for hero in all_heroes:
         if int(hero['id']) == int(id):
             return jsonify(hero)
-    return "'{'No hero found!'}'"
+    return "{'No hero found!'}"
 
 app.run()
